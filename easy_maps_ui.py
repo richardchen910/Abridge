@@ -1,4 +1,6 @@
 #Easy Maps UI
+#Richard Chen
+
 
 import easy_maps_data
 import easy_maps_api
@@ -26,7 +28,7 @@ def _create_output_objects(json_object: {"json text"}) -> ["output object"]:
     output_objects.append(easy_maps_data.Directions(json_object))    
     output_objects.append(easy_maps_data.Time(json_object))
     output_objects.append(easy_maps_data.Distance(json_object))
-    #output_objects.append(easy_maps_data.LatLong(json_object))        
+    output_objects.append(easy_maps_data.LatLong(json_object))        
     return output_objects
 
 
@@ -35,17 +37,21 @@ def _get_output(output_objects: dict) -> None:
     Calculates the output
     """
     data = dict()
-    data["start_address"] = output_objects[0].calculate()     #StartAddress
-    data["end_address"] = output_objects[1].calculate()      #EndAddress
-    data["directions"] = output_objects[2].calculate()     #Directions
-    data["time"] = output_objects[3].calculate()      #Time
-    data["distance"] = output_objects[4].calculate()      #Distance
-    #data.append(output_objects[3].calculate()      #LatLong
+    data["start_address"] = output_objects[0].calculate()   #StartAddress
+    data["end_address"] = output_objects[1].calculate()     #EndAddress
+    data["directions"] = output_objects[2].calculate()      #Directions
+    data["time"] = output_objects[3].calculate()            #Time
+    data["distance"] = output_objects[4].calculate()        #Distance
+    data["latlng"] = output_objects[5].calculate()         #LatLong
     return data
         
     
-def get_maps_url(origin: str, destination: str, travel_mode: str) -> str:
-    return easy_maps_api.build_maps_url(origin, destination, travel_mode)
+def get_directions_map_url(origin: str, destination: str, travel_mode: str) -> str:
+    return easy_maps_api.build_directions_map_url(origin, destination, travel_mode)
+
+
+def get_street_map_url(lat: float, lng: float) -> str:
+    return easy_maps_api.build_street_map_url(lat, lng)
 
 
 def run_application(origin: str, destination: str, travel_mode: str) -> ["Directions", "TotalTime", "TotalDistance", "LatLong"]:

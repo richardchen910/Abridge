@@ -7,34 +7,64 @@
 			<form class="form-inline" method="POST" action="/submit">
 				<input class="location" type="text" placeholder="From" name="origin">
 				<input class="location" type="text" placeholder="To" name="destination">
-				<div>
-					<input type="radio" name="travel_mode" value="driving"><i class="material-icons">directions_car</i>
-					<input type="radio" name="travel_mode" value="bicycling"><i class="material-icons">directions_bike</i>
-					<input type="radio" name="travel_mode" value="walking"><i class="material-icons">directions_walk</i>
+				<div id="travel-mode" class="form-group">
+					<label>
+						<input type="radio" name="travel_mode" value="driving" class="mode"><i class="material-icons">directions_car</i>
+					</label>
+					<label>
+						<input type="radio" name="travel_mode" value="bicycling" class="mode"><i class="material-icons">directions_bike</i>
+					</label>
+					<label>
+						<input type="radio" name="travel_mode" value="walking" class="mode"><i class="material-icons">directions_walk</i>
+					</label>
 				</div>
 				<input class="btn btn-success" type="submit" value="Find Route">
 			</form>
 		</div>
-
-		<div class="row-spacer"></div>
-		<section class="directions">
-			<h5>{{ data["time"] }} min ({{ data["distance"] }} miles)</h5>
-			<h2>Directions</h2>
-			<p><strong>{{ data["start_address"] }}</strong></p>
-			<ul>
-				{% for step in data["directions"] %}
-					<li>{{ step }}</li>
-				{% endfor %}
-			</ul>
-			<p><strong>{{ data["end_address"] }}</strong></p>
-		</section>
-
-		<section class="map">
-			<h2>Map</h2>
-			<div>
-				<iframe width="600" height="450" frameborder="0" style="border:0" src="{{ maps_url }}" allowfullscreen></iframe>
-			</div>
-		</section>
 	</header>
+
+	<div class="row-spacer"></div>
+	<div style="width: 80%" class="container-fluid">
+		<div class="row">
+			<!--time, distance, directions for trip-->
+			<div class="directions col-md-4">
+				<div class="col-md-12">
+					<h5>{{ data["time"] }} min ({{ data["distance"] }} miles)</h5>
+					<p><strong>{{ data["start_address"] }}</strong></p>
+					<ul>
+						{% for step in data["directions"] %}
+							<li>{{ step }}</li>
+						{% endfor %}
+					</ul>
+					<p><strong>{{ data["end_address"] }}</strong></p>
+				</div>
+			</div>
+
+			<!--column-spacer-->
+			<div class="col-md-1"></div>
+
+			<!--map displaying trip route-->
+			<div class="map col-md-7">
+				<div class="col-md-12">
+					<iframe width=100% height="550px" frameborder="0" style="border:0" src="{{ directions_map_url }}" allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<!--street view for start location-->
+			<div class="col-md-5">
+				<iframe width="650px" height = 550px" frameborder="0" style="border:0" src="{{ start_street_map_url }}" allowfullscreen></iframe>
+			</div>
+
+			<!--column-spacer-->
+			<div class="col-md-2"></div>
+
+			<!--street view for end location-->
+			<div class="col-md-5">
+				<iframe width="650px" height = 550px" frameborder="0" style="border:0" src="{{ end_street_map_url }}" allowfullscreen></iframe>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 

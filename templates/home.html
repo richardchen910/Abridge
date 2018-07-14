@@ -7,10 +7,16 @@
 			<form class="form-inline" method="POST" action="/submit">
 				<input class="location" type="text" placeholder="From" name="origin">
 				<input class="location" type="text" placeholder="To" name="destination">
-				<div>
-					<input type="radio" name="travel_mode" value="driving"><i class="material-icons">directions_car</i>
-					<input type="radio" name="travel_mode" value="bicycling"><i class="material-icons">directions_bike</i>
-					<input type="radio" name="travel_mode" value="walking"><i class="material-icons">directions_walk</i>
+				<div id="travel-mode" class="form-group">
+					<label>
+						<input type="radio" name="travel_mode" value="driving" class="mode"><i class="material-icons">directions_car</i>
+					</label>
+					<label>
+						<input type="radio" name="travel_mode" value="bicycling" class="mode"><i class="material-icons">directions_bike</i>
+					</label>
+					<label>
+						<input type="radio" name="travel_mode" value="walking" class="mode"><i class="material-icons">directions_walk</i>
+					</label>
 				</div>
 				<input class="btn btn-success" type="submit" value="Find Route">
 			</form>

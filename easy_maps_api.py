@@ -1,4 +1,5 @@
-#Google Maps API"""
+#Google Maps API
+#Richard Chen
 
 import urllib.request
 import urllib.parse
@@ -17,13 +18,23 @@ def build_directions_url(origin: str, destination: str, travel_mode: str) -> "UR
     return base_url + "?" + urllib.parse.urlencode(query_parameters)
 
 
-def build_maps_url(origin: str, destination: str, travel_mode: str) -> "URL":
+def build_directions_map_url(origin: str, destination: str, travel_mode: str) -> "URL":
     """
     Takes a list of two locations and encodes the parameters into a valid URL
     format, returns a URL that displays the route as a map
     """
     base_url = "https://www.google.com/maps/embed/v1/directions"
     query_parameters = [("key", GOOGLE_API_KEY), ("origin", origin), ("destination", destination), ("mode", travel_mode)]
+    return base_url + "?" + urllib.parse.urlencode(query_parameters)
+
+
+def build_street_map_url(lat: float, lng: float) -> "URL":
+    """
+    Takes the lat/lng of a location and encodes the parameters into a valid URL
+    format, returns a URL that displays the street view of that location
+    """
+    base_url = "https://www.google.com/maps/embed/v1/streetview"
+    query_parameters = [("key", GOOGLE_API_KEY), ("location", str(lat) + "," + str(lng))]
     return base_url + "?" + urllib.parse.urlencode(query_parameters)
 
 

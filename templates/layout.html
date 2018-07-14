@@ -10,37 +10,54 @@
 
 <style>
 
+	.container-fluid {
+		width: 80%;
+	}
+
 	.location {
 		margin: 15px;
 		padding: 5px;
 		width: 35%;
 	}
 
-	.container {
-		width: ;
-	}
-
 	.row-spacer {
 		padding: 40px;
 	}
 
-	section.directions {
+	.directions {
 		padding: 20px;
-		margin-left: 10%;
-		width: 25%;
 	}
 
-	section.map {
+	.map {
 		padding: 20px;
-		margin-left: 50%;
+	}
+
+	#travel-mode {
+		padding: 0px 20px 0px 10px;
+	}
+
+	label {
+		padding: 5px;
+	}
+
+	label > input.mode {
+		visibility: hidden;
+		position: absolute;
+
+	}
+
+	label > input.mode:checked + i {
+		background-color: grey;
+	}
+
+	label > input.mode + i {
+		background-color: lightgrey;
+		border-radius: 50%;
+		padding: 5px;
 	}
 
 	h1 {
 		text-align: center;
-	}
-
-	h2 {
-		padding: 5px 0px;
 	}
 
 	h5 {
@@ -66,7 +83,6 @@
 </head>
 <body>
 	{% block body %}{% endblock%}
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>

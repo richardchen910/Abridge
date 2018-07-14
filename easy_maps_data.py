@@ -1,5 +1,6 @@
 #Easy Maps Data
-import re
+#Richard Chen
+
 
 class StartAddress:
     """
@@ -94,38 +95,33 @@ class Time:
         return round(self._json_object["routes"][0]["legs"][0]["duration"]["value"] / 60)      #seconds to minutes
     
 
-"""
 class LatLong:
-    
-    #LatLong object, contains __init__ and calculate methods
-    
+    """
+    LatLong object, contains __init__ and calculate methods
+    """
     def __init__(self, json_object):
-        
-        #Creates a list attribute to hold a list of latitude and longitude
-        #pairs, also creates an attribute holding a json object
-        
-        self._lat_long_list = []
+        """
+        Creates a dictionary to hold the lat/long of the origin
+        and destination also creates an attribute holding a json object
+        """
+        self._latlng = dict()
         self._json_object = json_object
 
     def calculate(self) -> None:
-        
-        #Retrieves the latitude and longitude from the json object as a float,
-        #converts them to the proper notation, and prints the result
-        
-        locations = self._json_object["route"]["locations"]
-
-        for i in range(len(locations)):
-            lat = locations[i]["latLng"]["lat"]
-            long = locations[i]["latLng"]["lng"]
-            lat, long = self._convert_notation(lat, long)
-            self._lat_long_list.append((lat, long))
-        return self._lat_long_list
+        """
+        Retrieves the latitude and longitude from the json object as a float,
+        """
+        start_location = self._json_object["routes"][0]["legs"][0]["start_location"]
+        end_location = self._json_object["routes"][0]["legs"][0]["end_location"]
+        self._latlng["start"] = {"lat": start_location["lat"], "lng": start_location["lng"]}
+        self._latlng["end"] = {"lat": end_location["lat"], "lng": end_location["lng"]}
+        return self._latlng
 
     def _convert_notation(self, lat: float, long: float) -> ("lat", "long"):
-        
-        #Converts the latitude and longitude to the proper notation (North,
-        #South, East, West) and returns the pair
-        
+        """
+        Converts the latitude and longitude to the proper notation (North,
+        South, East, West) and returns the pair
+        """
         if lat < 0:
             lat = str(round(abs(lat), 2)) + "S"
         else:
@@ -137,5 +133,5 @@ class LatLong:
             long = str(round(long)) + "E"
 
         return lat, long
-"""
+
             
