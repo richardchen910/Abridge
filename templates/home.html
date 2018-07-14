@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block body %} 
+	<header>
+		<h1>Easy Maps</h1>
+		<div class="container">
+			<form class="form-inline" method="POST" action="/submit">
+				<input class="location" type="text" placeholder="From" name="origin">
+				<input class="location" type="text" placeholder="To" name="destination">
+				<div>
+					<input type="radio" name="travel_mode" value="driving"><i class="material-icons">directions_car</i>
+					<input type="radio" name="travel_mode" value="bicycling"><i class="material-icons">directions_bike</i>
+					<input type="radio" name="travel_mode" value="walking"><i class="material-icons">directions_walk</i>
+					!
+				</div>
+				<input class="btn btn-success" type="submit" value="Find Route">
+			</form>
+		</div>
+	</header>
+{% endblock %}

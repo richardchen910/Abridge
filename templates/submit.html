@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+	<header>
+		<h1>Easy Maps</h1>
+		<div class="container">
+			<form class="form-inline" method="POST" action="/submit">
+				<input class="location" type="text" placeholder="From" name="origin">
+				<input class="location" type="text" placeholder="To" name="destination">
+				<div>
+					<input type="radio" name="travel_mode" value="driving"><i class="material-icons">directions_car</i>
+					<input type="radio" name="travel_mode" value="bicycling"><i class="material-icons">directions_bike</i>
+					<input type="radio" name="travel_mode" value="walking"><i class="material-icons">directions_walk</i>
+				</div>
+				<input class="btn btn-success" type="submit" value="Find Route">
+			</form>
+		</div>
+
+		<div class="row-spacer"></div>
+		<section class="directions">
+			<h5>{{ data["time"] }} min ({{ data["distance"] }} miles)</h5>
+			<h2>Directions</h2>
+			<p><strong>{{ data["start_address"] }}</strong></p>
+			<ul>
+				{% for step in data["directions"] %}
+					<li>{{ step }}</li>
+				{% endfor %}
+			</ul>
+			<p><strong>{{ data["end_address"] }}</strong></p>
+		</section>
+
+		<section class="map">
+			<h2>Map</h2>
+			<div>
+				<iframe width="600" height="450" frameborder="0" style="border:0" src="{{ maps_url }}" allowfullscreen></iframe>
+			</div>
+		</section>
+	</header>
+{% endblock %}
+
