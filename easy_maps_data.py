@@ -92,8 +92,16 @@ class Time:
         """
         Returns the total time from the json object as an int
         """
-        return round(self._json_object["routes"][0]["legs"][0]["duration"]["value"] / 60)      #seconds to minutes
-    
+        time = round(self._json_object["routes"][0]["legs"][0]["duration"]["value"] / 60)      #seconds to minutes
+        if time >= 60:
+            hour = time / 60
+            minutes = int((hour - int(hour)) * 60)
+            return str(int(hour)) + " h " + str(minutes) + " min"
+        else:
+            return str(time) + " min"
+        
+
+
 
 class LatLong:
     """

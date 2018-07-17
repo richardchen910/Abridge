@@ -21,50 +21,41 @@
 				<input class="btn btn-success" type="submit" value="Find Route">
 			</form>
 		</div>
+		<br>
+		<hr>
 	</header>
 
 	<div class="row-spacer"></div>
 	<div style="width: 80%" class="container-fluid">
-		<div class="row">
+		<div class="row flex-container">
 			<!--time, distance, directions for trip-->
-			<div class="directions col-md-4">
-				<div class="col-md-12">
-					<h5>{{ data["time"] }} min ({{ data["distance"] }} miles)</h5>
-					<p><strong>{{ data["start_address"] }}</strong></p>
-					<ul>
-						{% for step in data["directions"] %}
-							<li>{{ step }}</li>
-						{% endfor %}
-					</ul>
-					<p><strong>{{ data["end_address"] }}</strong></p>
+			<div class="col-md-4 box">
+				<h5>Approx. {{ data["time"] }} ({{ data["distance"] }} miles)</h5>
+				<hr>
+				<div class="directions">
+					<div class="col-md-12">
+						<p style="padding: 5px 7px 0px; margin: 0">Start at <strong>{{ data["start_address"] }}</strong></p>
+						<p style="padding: 7px 7px 3px"><button type="button" class="btn btn-primary reveal-button" data-location="origin">Enable Street View</button>&nbsp;&nbsp;<button class="btn reset-button" data-location="route-map">Reset</button></p>
+						<ul>
+							{% for step in data["directions"] %}
+								<li>{{ step }}</li>
+							{% endfor %}
+						</ul>
+						<p style="padding: 0px 7px 0px">Arrive at <strong>{{ data["end_address"] }}</strong></p>
+						<p style="padding: 7px 7px 13px"><button class="btn btn-primary reveal-button" data-location="destination">Enable Street View</button>&nbsp;&nbsp;<button class="btn reset-button" data-location="route-map">Reset</button></p>
+					</div>
 				</div>
 			</div>
-
-			<!--column-spacer-->
-			<div class="col-md-1"></div>
 
 			<!--map displaying trip route-->
-			<div class="map col-md-7">
-				<div class="col-md-12">
-					<iframe width=100% height="550px" frameborder="0" style="border:0" src="{{ directions_map_url }}" allowfullscreen></iframe>
-				</div>
+			<div class="col-md-8 box">
+				<iframe id="route-map" width=100% height="100%" frameborder="0" style="border:0; display: block" src="{{ directions_map_url }}" allowfullscreen></iframe>
 			</div>
 		</div>
 
-		<div class="row">
-			<!--street view for start location-->
-			<div class="col-md-5">
-				<iframe width="650px" height = 550px" frameborder="0" style="border:0" src="{{ start_street_map_url }}" allowfullscreen></iframe>
-			</div>
-
-			<!--column-spacer-->
-			<div class="col-md-2"></div>
-
-			<!--street view for end location-->
-			<div class="col-md-5">
-				<iframe width="650px" height = 550px" frameborder="0" style="border:0" src="{{ end_street_map_url }}" allowfullscreen></iframe>
-			</div>
-		</div>
+		<!--street view images for start and end locations, URLs are extracted in layout.html-->
+		<iframe id="origin" width="100%" height="500px" frameborder="0" style="border:0; display: none" src="{{ start_street_map_url }}" allowfullscreen></iframe>	
+		<iframe id="destination" width="100%" height="500px" frameborder="0" style="border:0; display: none" src="{{ end_street_map_url }}" allowfullscreen></iframe>
 	</div>
 {% endblock %}
 
