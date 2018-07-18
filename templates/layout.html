@@ -111,16 +111,18 @@
 		margin: 0;
 	}
 
-</style>
+</style>	
 </head>
 <body>
 	{% block body %}{% endblock%}
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	
+	<!--Allows users to enable street view and reset to route map with button click-->
 	<script>
 		//global var that holds the URL of the route map
 		var route_map_url = document.getElementById("route-map").getAttribute("src");
-
+		
 		$(document).ready(function() {
 			$(".reveal-button").on("click", function() {
 				var location = $(this).attr("data-location");
@@ -136,6 +138,30 @@
 				}
 			});
 		});
+	</script>
+
+	<!--Ensures that user does not leave any input missing before submit-->
+	<script>
+		var origin = document.getElementById("start");
+		origin.addEventListener("input", function() {
+			if (origin.validity.valueMissing) {
+				origin.setCustomValidity("Please enter a location");
+			}
+			else {
+				origin.setCustomValidity("");
+			}
+		});
+
+		var destination = document.getElementById("end");
+		destination.addEventListener("input", function() {
+			if (destination.validity.valueMissing) {
+				destination.setCustomValidity("Please enter a location");
+			}
+			else {
+				destination.setCustomValidity("");
+			}
+		});
+
 	</script>
 </body>
 </html>

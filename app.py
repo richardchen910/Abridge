@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request
 import easy_maps_ui
 
-
 app = Flask(__name__)
+
+app.secret_key = '7723af75fdfbab5656f0ca1b2187878f'
+
 
 @app.route('/')
 def index():
@@ -36,7 +38,6 @@ def input():
 		start_street_map_url = easy_maps_ui.get_street_map_url(start_lat, start_lng)
 		end_street_map_url = easy_maps_ui.get_street_map_url(end_lat, end_lng)
 		return render_template('submit.html', data=data, directions_map_url=directions_map_url, start_street_map_url=start_street_map_url, end_street_map_url=end_street_map_url)
-
 	
 
 

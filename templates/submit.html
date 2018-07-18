@@ -5,11 +5,11 @@
 		<h1>Easy Maps</h1>
 		<div class="container">
 			<form class="form-inline" method="POST" action="/submit">
-				<input class="location" type="text" placeholder="From" name="origin">
-				<input class="location" type="text" placeholder="To" name="destination">
+				<input id="start" class="location" type="text" placeholder="From" name="origin" required>
+				<input id="end" class="location" type="text" placeholder="To" name="destination" required>
 				<div id="travel-mode" class="form-group">
 					<label>
-						<input type="radio" name="travel_mode" value="driving" class="mode"><i class="material-icons">directions_car</i>
+						<input id="mode" type="radio" name="travel_mode" value="driving" class="mode" checked><i class="material-icons">directions_car</i>
 					</label>
 					<label>
 						<input type="radio" name="travel_mode" value="bicycling" class="mode"><i class="material-icons">directions_bike</i>
@@ -30,18 +30,25 @@
 		<div class="row flex-container">
 			<!--time, distance, directions for trip-->
 			<div class="col-md-4 box">
-				<h5>Approx. {{ data["time"] }} ({{ data["distance"] }} miles)</h5>
+				{% with messages = get_flashed_messages() %}
+					{% if messages %}
+						{% for message in messages %}
+							{{ message }}
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+				<h5>~{{ data["time"] }} ({{ data["distance"] }} miles)</h5>
 				<hr>
 				<div class="directions">
 					<div class="col-md-12">
 						<p style="padding: 5px 7px 0px; margin: 0">Start at <strong>{{ data["start_address"] }}</strong></p>
-						<p style="padding: 7px 7px 3px"><button type="button" class="btn btn-primary reveal-button" data-location="origin">Enable Street View</button>&nbsp;&nbsp;<button class="btn reset-button" data-location="route-map">Reset</button></p>
+						<p style="padding: 7px 7px 10px"><button type="button" class="btn btn-primary reveal-button" data-location="origin">Enable Street View</button>&nbsp;&nbsp;<button class="btn reset-button" data-location="route-map">Reset</button></p>
 						<ul>
 							{% for step in data["directions"] %}
 								<li>{{ step }}</li>
 							{% endfor %}
 						</ul>
-						<p style="padding: 0px 7px 0px">Arrive at <strong>{{ data["end_address"] }}</strong></p>
+						<p style="padding: 5px 7px 0px">Arrive at <strong>{{ data["end_address"] }}</strong></p>
 						<p style="padding: 7px 7px 13px"><button class="btn btn-primary reveal-button" data-location="destination">Enable Street View</button>&nbsp;&nbsp;<button class="btn reset-button" data-location="route-map">Reset</button></p>
 					</div>
 				</div>
@@ -57,5 +64,8 @@
 		<iframe id="origin" width="100%" height="500px" frameborder="0" style="border:0; display: none" src="{{ start_street_map_url }}" allowfullscreen></iframe>	
 		<iframe id="destination" width="100%" height="500px" frameborder="0" style="border:0; display: none" src="{{ end_street_map_url }}" allowfullscreen></iframe>
 	</div>
+
 {% endblock %}
+
+
 

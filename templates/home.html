@@ -5,11 +5,11 @@
 		<h1>Easy Maps</h1>
 		<div class="container">
 			<form class="form-inline" method="POST" action="/submit">
-				<input class="location" type="text" placeholder="From" name="origin">
-				<input class="location" type="text" placeholder="To" name="destination">
+				<input id="start" class="location" type="text" placeholder="From" name="origin" required>
+				<input id="end" class="location" type="text" placeholder="To" name="destination" required>
 				<div id="travel-mode" class="form-group">
 					<label>
-						<input type="radio" name="travel_mode" value="driving" class="mode"><i class="material-icons">directions_car</i>
+						<input id="mode" type="radio" name="travel_mode" value="driving" class="mode" checked><i class="material-icons">directions_car</i>
 					</label>
 					<label>
 						<input type="radio" name="travel_mode" value="bicycling" class="mode"><i class="material-icons">directions_bike</i>
@@ -21,6 +21,7 @@
 				<input class="btn btn-success" type="submit" value="Find Route">
 			</form>
 		</div>
+		<br>
 		<hr>
 	</header>
 {% endblock %}
