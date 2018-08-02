@@ -8,19 +8,27 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
 
-	.flex-container {
-		display: flex;
-	}
-
 	.container-fluid {
 		width: 80%;
 	}
 
-	.location {
-		margin: 15px;
-		padding: 5px;
-		width: 35%;
+	#start {
+		width: 40%;
 	}
+
+	#end {
+		width: 25%;
+	}
+
+	#submit {
+		width: 14%;
+	}
+
+	.input {
+		margin: 10px;
+	}
+
+
 
 	.row-spacer {
 		padding: 20px;
@@ -42,22 +50,11 @@
 		margin: 25px 0px 30px;
 	}
 
-	#travel-mode {
-		padding: 0px 20px 0px 10px;
-	}
-
-
-	}
-
 	button {
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
 		text-align: center;
-	}
-
-	label {
-		padding: 5px;
 	}
 
 	label > input.mode {
@@ -72,8 +69,7 @@
 
 	label > input.mode + i {
 		background-color: lightgrey;
-		border-radius: 50%;
-		padding: 5px;
+		padding: 7px;
 		cursor: pointer;
 	}
 
@@ -89,7 +85,7 @@
 
 	h5 {
 		color: green;
-		padding: 10px 0px;
+		padding: 10px 0px 5px;
 		margin-left: 17px;
 	}
 
@@ -99,7 +95,7 @@
 	}
 
 	ul {
-		list-style-type: decimal;
+		list-style-type: none;
 		margin: 0;
 	}
 
@@ -111,33 +107,37 @@
 		margin: 0;
 	}
 
+
 </style>	
 </head>
 <body>
 	{% block body %}{% endblock%}
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	
+
 	<!--Allows users to enable street view and reset to route map with button click-->
 	<script>
 		//global var that holds the URL of the route map
-		var route_map_url = document.getElementById("route-map").getAttribute("src");
-		
-		$(document).ready(function() {
-			$(".reveal-button").on("click", function() {
-				var location = $(this).attr("data-location");
-				var new_url = document.getElementById(location).getAttribute("src");				
-				if (document.getElementById("route-map").getAttribute("src") != new_url) {
-					$("#route-map").attr("src", new_url);
-				}
-			});
+		var route_map = document.getElementById("route-map");
+		if (route_map != null) {
+			var route_map_url = route_map.getAttribute("src");
 
-			$(".reset-button").on("click", function() {
-				if (document.getElementById("route-map").getAttribute("src") != route_map_url) {
-					$("#route-map").attr("src", route_map_url);
-				}
+			$(document).ready(function() {
+				$(".reveal-button").on("click", function() {
+					var location = $(this).attr("data-location");
+					var new_url = document.getElementById(location).getAttribute("src");				
+					if (route_map.getAttribute("src") != new_url) {
+						$("#route-map").attr("src", new_url);
+					}
+				});
+
+				$(".reset-button").on("click", function() {
+					if (route_map.getAttribute("src") != route_map_url) {
+						$("#route-map").attr("src", route_map_url);
+					}
+				});
 			});
-		});
+		}
 	</script>
 
 	<!--Ensures that user does not leave any input missing before submit-->
@@ -156,6 +156,7 @@
 		destination.addEventListener("input", function() {
 			if (destination.validity.valueMissing) {
 				destination.setCustomValidity("Please enter a location");
+
 			}
 			else {
 				destination.setCustomValidity("");

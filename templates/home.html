@@ -5,23 +5,29 @@
 		<h1>Easy Maps</h1>
 		<div class="container">
 			<form class="form-inline" method="POST" action="/submit">
-				<input id="start" class="location" type="text" placeholder="From" name="origin" required>
-				<input id="end" class="location" type="text" placeholder="To" name="destination" required>
-				<div id="travel-mode" class="form-group">
-					<label>
-						<input id="mode" type="radio" name="travel_mode" value="driving" class="mode" checked><i class="material-icons">directions_car</i>
-					</label>
-					<label>
-						<input type="radio" name="travel_mode" value="bicycling" class="mode"><i class="material-icons">directions_bike</i>
-					</label>
-					<label>
-						<input type="radio" name="travel_mode" value="walking" class="mode"><i class="material-icons">directions_walk</i>
-					</label>
+				<div class="form-group" style="width: 100%">
+					<label for="start"></label>					
+					<input id="start" class="form-control input" type="text" autocomplete="off" placeholder="Enter your current location" name="location" required>
+					<label for="end"></label>
+					<input id="end" class="form-control input" type="text" autocomplete="off" placeholder="What are you looking for?" name="query" required>
+					<div class="btn-group btn-group-toggle" data-toggle="buttons" style="border: 1px; margin: 10px">
+					  	<label class="btn btn-outline-secondary">
+					    	<input type="radio" name="travel_mode" value="driving" required><i class="material-icons">directions_car</i>
+					  	</label>
+					  	<label class="btn btn-outline-secondary">
+					    	<input type="radio" name="travel_mode" value="bicycling"><i class="material-icons">directions_bike</i>
+					  	</label>
+					  	<label class="btn btn-outline-secondary">
+					    	<input type="radio" name="travel_mode" value="walking"><i class="material-icons">directions_walk</i>
+					  	</label>
+					</div>
+					<label for="submit"></label>
+					<input id="submit" class="btn btn-success input" type="submit" value="Search">
 				</div>
-				<input class="btn btn-success" type="submit" value="Find Route">
 			</form>
 		</div>
 		<br>
 		<hr>
 	</header>
+
 {% endblock %}

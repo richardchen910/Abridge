@@ -5,20 +5,25 @@
 		<h1>Easy Maps</h1>
 		<div class="container">
 			<form class="form-inline" method="POST" action="/submit">
-				<input id="start" class="location" type="text" placeholder="From" name="origin" required>
-				<input id="end" class="location" type="text" placeholder="To" name="destination" required>
-				<div id="travel-mode" class="form-group">
-					<label>
-						<input id="mode" type="radio" name="travel_mode" value="driving" class="mode" checked><i class="material-icons">directions_car</i>
-					</label>
-					<label>
-						<input type="radio" name="travel_mode" value="bicycling" class="mode"><i class="material-icons">directions_bike</i>
-					</label>
-					<label>
-						<input type="radio" name="travel_mode" value="walking" class="mode"><i class="material-icons">directions_walk</i>
-					</label>
+				<div class="form-group" style="width: 100%">
+					<label for="start"></label>					
+					<input id="start" class="form-control input" type="text" autocomplete="off" placeholder="Enter your current location" name="location" required>
+					<label for="end"></label>
+					<input id="end" class="form-control input" type="text" autocomplete="off" placeholder="What are you looking for?" name="query" required>
+					<div class="btn-group btn-group-toggle" data-toggle="buttons" style="border: 1px; margin: 10px">
+					  	<label class="btn btn-outline-secondary">
+					    	<input type="radio" name="travel_mode" value="driving" required><i class="material-icons">directions_car</i>
+					  	</label>
+					  	<label class="btn btn-outline-secondary">
+					    	<input type="radio" name="travel_mode" value="bicycling"><i class="material-icons">directions_bike</i>
+					  	</label>
+					  	<label class="btn btn-outline-secondary">
+					    	<input type="radio" name="travel_mode" value="walking"><i class="material-icons">directions_walk</i>
+					  	</label>
+					</div>
+					<label for="submit"></label>
+					<input id="submit" class="btn btn-success input" type="submit" value="Search">
 				</div>
-				<input class="btn btn-success" type="submit" value="Find Route">
 			</form>
 		</div>
 		<br>
@@ -27,25 +32,22 @@
 
 	<div class="row-spacer"></div>
 	<div style="width: 80%" class="container-fluid">
-		<div class="row flex-container">
+		<div class="row">
 			<!--time, distance, directions for trip-->
 			<div class="col-md-4 box">
-				{% with messages = get_flashed_messages() %}
-					{% if messages %}
-						{% for message in messages %}
-							{{ message }}
-						{% endfor %}
-					{% endif %}
-				{% endwith %}
+				<h4>Directions to {{ destination_name }}</h4>
+				<hr>
 				<h5>~{{ data["time"] }} ({{ data["distance"] }} miles)</h5>
 				<hr>
 				<div class="directions">
 					<div class="col-md-12">
-						<p style="padding: 5px 7px 0px; margin: 0">Start at <strong>{{ data["start_address"] }}</strong></p>
-						<p style="padding: 7px 7px 10px"><button type="button" class="btn btn-primary reveal-button" data-location="origin">Enable Street View</button>&nbsp;&nbsp;<button class="btn reset-button" data-location="route-map">Reset</button></p>
+						<p style="padding: 7px 7px 7px"><button type="button" class="btn btn-primary reveal-button" data-location="origin">Enable Street View</button>&nbsp;&nbsp;<button class="btn reset-button" data-location="route-map">Reset</button></p>
+						<p style="padding: 5px 7px 5px; margin: 0">Start at <strong>{{ data["start_address"] }}</strong></p>
 						<ul>
+							<hr>
 							{% for step in data["directions"] %}
 								<li>{{ step }}</li>
+								<hr>
 							{% endfor %}
 						</ul>
 						<p style="padding: 5px 7px 0px">Arrive at <strong>{{ data["end_address"] }}</strong></p>
