@@ -2,8 +2,9 @@
 
 {% block body %}
 	<header>
-		<h1>Easy Maps</h1>
+		<h1>Abridge</h1>
 		<div class="container">
+			<h6 id="motto">&nbsp;Find your place&nbsp;</h6>
 			<form class="form-inline" method="POST" action="/submit">
 				<div class="form-group" style="width: 100%">
 					<label for="start"></label>					
@@ -31,27 +32,31 @@
 	</header>
 
 	<div class="row-spacer"></div>
-	<div style="width: 80%" class="container-fluid">
+	<div style="width: 80%; font-family: Helvetica Neue" class="container-fluid">
 		<div class="row">
 			<!--time, distance, directions for trip-->
 			<div class="col-md-4 box">
-				<h4>Directions to {{ destination_name }}</h4>
-				<hr>
-				<h5>~{{ data["time"] }} ({{ data["distance"] }} miles)</h5>
+				<h3 style="padding-top: 10px; margin-bottom: 0; text-align: center">{{ destination_name }}</h3>
+				<h6 id="end-address">{{ data["end_address"] }}</h6>
+				<h5><span style="color: #2eb82e">~{{ data["time"] }}</span> ({{ data["distance"] }} miles)</h5>
 				<hr>
 				<div class="directions">
 					<div class="col-md-12">
-						<p style="padding: 7px 7px 7px"><button type="button" class="btn btn-primary reveal-button" data-location="origin">Enable Street View</button>&nbsp;&nbsp;<button class="btn reset-button" data-location="route-map">Reset</button></p>
-						<p style="padding: 5px 7px 5px; margin: 0">Start at <strong>{{ data["start_address"] }}</strong></p>
-						<ul>
+						<div style="padding: 7px 7px 3px">
+							<button type="button" class="btn btn-primary reveal-button" data-location="origin">Enable Street View</button>&nbsp;&nbsp;<button class="btn btn-secondary reset-button" data-location="route-map">Reset</button>
+						</div>
+						<p style="padding: 5px 7px 5px; margin: 0; font-size: 16px"><strong>{{ data["start_address"] }}</strong></p>
+						<ul id="directions">
 							<hr>
 							{% for step in data["directions"] %}
 								<li>{{ step }}</li>
 								<hr>
 							{% endfor %}
 						</ul>
-						<p style="padding: 5px 7px 0px">Arrive at <strong>{{ data["end_address"] }}</strong></p>
-						<p style="padding: 7px 7px 13px"><button class="btn btn-primary reveal-button" data-location="destination">Enable Street View</button>&nbsp;&nbsp;<button class="btn reset-button" data-location="route-map">Reset</button></p>
+						<p style="padding: 5px 7px 0px; font-size: 16px"><strong>{{ data["end_address"] }}</strong></p>
+						<div style="padding: 7px 7px 13px">
+							<button class="btn btn-primary reveal-button" data-location="destination">Enable Street View</button>&nbsp;&nbsp;<button class="btn btn-secondary reset-button" data-location="route-map">Reset</button>
+						</div>
 					</div>
 				</div>
 			</div>

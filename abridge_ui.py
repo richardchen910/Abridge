@@ -1,9 +1,9 @@
-#Easy Maps UI
+#Abridge UI
 #Richard Chen
 
 
-import easy_maps_data
-import easy_maps_api
+import abridge_output
+import abridge_api
 import urllib.error
 import math
 
@@ -12,8 +12,8 @@ def _get_place_id_json_object(location: str) -> {"json text"}:
     """
     Returns a json dictionary containing the place-id of a location given by the user
     """
-    url = easy_maps_api.build_place_id_url(location)
-    json_object = easy_maps_api.get_json_data(url)
+    url = abridge_api.build_place_id_url(location)
+    json_object = abridge_api.get_json_data(url)
     return json_object
 
 
@@ -21,8 +21,8 @@ def _get_place_details_json_object(place_id: str) -> {"json text"}:
     """
     Returns a json dictionary containing details of a location given by the user
     """
-    url = easy_maps_api.build_place_details_url(place_id)
-    json_object = easy_maps_api.get_json_data(url)
+    url = abridge_api.build_place_details_url(place_id)
+    json_object = abridge_api.get_json_data(url)
     return json_object
 
 
@@ -31,8 +31,8 @@ def _get_results_json_object(lat: float, lng: float, query: str) -> {"json text"
     Returns a json dictionary containing  potential end locations given the start location and
     query given by the user
     """ 
-    url = easy_maps_api.build_results_url(lat, lng, query)
-    json_object = easy_maps_api.get_json_data(url)
+    url = abridge_api.build_results_url(lat, lng, query)
+    json_object = abridge_api.get_json_data(url)
     return json_object
 
 
@@ -41,8 +41,8 @@ def _get_directions_json_object(origin: str, destination: str, travel_mode: str)
     Returns a json dictionary containing information about the directions between the
     start and end locations given by the user
     """
-    url = easy_maps_api.build_directions_url(origin, destination, travel_mode)
-    json_object = easy_maps_api.get_json_data(url) #dict
+    url = abridge_api.build_directions_url(origin, destination, travel_mode)
+    json_object = abridge_api.get_json_data(url) #dict
     return json_object
 
 
@@ -52,12 +52,12 @@ def _create_output_objects(json_object: {"json text"}) -> ["output object"]:
     for each desired output and returns a list of those objects
     """
     output_objects = []
-    output_objects.append(easy_maps_data.StartAddress(json_object))    
-    output_objects.append(easy_maps_data.EndAddress(json_object))    
-    output_objects.append(easy_maps_data.Directions(json_object))    
-    output_objects.append(easy_maps_data.Time(json_object))
-    output_objects.append(easy_maps_data.Distance(json_object))
-    output_objects.append(easy_maps_data.LatLong(json_object))        
+    output_objects.append(abridge_output.StartAddress(json_object))    
+    output_objects.append(abridge_output.EndAddress(json_object))    
+    output_objects.append(abridge_output.Directions(json_object))    
+    output_objects.append(abridge_output.Time(json_object))
+    output_objects.append(abridge_output.Distance(json_object))
+    output_objects.append(abridge_output.LatLong(json_object))        
     return output_objects
 
 
@@ -104,11 +104,11 @@ def get_results(lat: float, lng: float, query: str, travel_mode: str, origin: st
 
 
 def get_directions_map_url(origin: str, destination: str, travel_mode: str) -> str:
-    return easy_maps_api.build_directions_map_url(origin, destination, travel_mode)
+    return abridge_api.build_directions_map_url(origin, destination, travel_mode)
 
 
 def get_street_map_url(lat: float, lng: float) -> str:
-    return easy_maps_api.build_street_map_url(lat, lng)
+    return abridge_api.build_street_map_url(lat, lng)
 
 
 def run_application(origin: str, destination: str, travel_mode: str) -> ["Directions", "TotalTime", "TotalDistance", "LatLong"]:
