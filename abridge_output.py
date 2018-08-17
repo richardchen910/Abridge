@@ -124,12 +124,10 @@ class LatLong:
         self._latlng["start"] = {"lat": start_location["lat"], "lng": start_location["lng"]}
         self._latlng["end"] = {"lat": end_location["lat"], "lng": end_location["lng"]}
         return self._latlng
-
+    """
     def _convert_notation(self, lat: float, long: float) -> ("lat", "long"):
-        """
-        Converts the latitude and longitude to the proper notation (North,
-        South, East, West) and returns the pair
-        """
+        # Converts the latitude and longitude to the proper notation (North,
+        # South, East, West) and returns the pair
         if lat < 0:
             lat = str(round(abs(lat), 2)) + "S"
         else:
@@ -141,5 +139,5 @@ class LatLong:
             long = str(round(long)) + "E"
 
         return lat, long
-
+    """
             

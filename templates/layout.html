@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Abridge</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+		<meta charset="utf-8">
+		<title>Abridge</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 	<link href='https://fonts.googleapis.com/css?family=Helvetica Neue' rel='stylesheet'>
@@ -131,7 +131,7 @@
 	}
 
 	ul {
-		list-style-image: url("../images/direction.png");
+		list-style-image: url(https://www.vecteezy.com/vector-icons/14975-free-google-maps-pointer-icon);
 		margin: 0;
 	}
 
@@ -147,7 +147,14 @@
 </style>	
 </head>
 <body>
-	{% block body %}{% endblock%}
+	{% include 'includes/_header.html' %}
+	{% block body %}{% endblock %} 
+	<br>
+	<div style="text-align: center">
+		<div style="display: inline-block">
+			{% include 'includes/_messages.html'%}
+		</div>
+	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
@@ -200,5 +207,6 @@
 		});
 
 	</script>
+
 </body>
 </html>

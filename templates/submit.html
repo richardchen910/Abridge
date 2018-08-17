@@ -1,35 +1,6 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-	<header>
-		<h1>Abridge</h1>
-		<div class="container">
-			<h6 id="motto">&nbsp;Find your place&nbsp;</h6>
-			<form class="form-inline" method="POST" action="/submit">
-				<div class="form-group" style="width: 100%">
-					<label for="start"></label>					
-					<input id="start" class="form-control input" type="text" autocomplete="off" placeholder="Enter your current location" name="location" required>
-					<label for="end"></label>
-					<input id="end" class="form-control input" type="text" autocomplete="off" placeholder="What are you looking for?" name="query" required>
-					<div class="btn-group btn-group-toggle" data-toggle="buttons" style="border: 1px; margin: 10px">
-					  	<label class="btn btn-outline-secondary">
-					    	<input type="radio" name="travel_mode" value="driving" required><i class="material-icons">directions_car</i>
-					  	</label>
-					  	<label class="btn btn-outline-secondary">
-					    	<input type="radio" name="travel_mode" value="bicycling"><i class="material-icons">directions_bike</i>
-					  	</label>
-					  	<label class="btn btn-outline-secondary">
-					    	<input type="radio" name="travel_mode" value="walking"><i class="material-icons">directions_walk</i>
-					  	</label>
-					</div>
-					<label for="submit"></label>
-					<input id="submit" class="btn btn-success input" type="submit" value="Search">
-				</div>
-			</form>
-		</div>
-		<br>
-		<hr>
-	</header>
 
 	<div class="row-spacer"></div>
 	<div style="width: 80%; font-family: Helvetica Neue" class="container-fluid">
@@ -46,10 +17,10 @@
 							<button type="button" class="btn btn-primary reveal-button" data-location="origin">Enable Street View</button>&nbsp;&nbsp;<button class="btn btn-secondary reset-button" data-location="route-map">Reset</button>
 						</div>
 						<p style="padding: 5px 7px 5px; margin: 0; font-size: 16px"><strong>{{ data["start_address"] }}</strong></p>
-						<ul id="directions">
+						<ul>
 							<hr>
 							{% for step in data["directions"] %}
-								<li>{{ step }}</li>
+								<li class="steps">{{ step|safe }}</li>
 								<hr>
 							{% endfor %}
 						</ul>

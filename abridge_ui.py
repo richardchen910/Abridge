@@ -92,14 +92,14 @@ def get_results(lat: float, lng: float, query: str, travel_mode: str, origin: st
     """
     sorted_results = dict()
     results = _get_results_json_object(lat, lng, query)["results"]
-    min_distance = math.inf
+    min_time = math.inf
     for i in range(len(results)):
         destination = results[i]["formatted_address"]
         directions_json_object = _get_directions_json_object(origin, destination, travel_mode)
-        distance = directions_json_object["routes"][0]["legs"][0]["distance"]["value"] / 1609.34
-        if distance < min_distance:
-            sorted_results[results[i]["formatted_address"]] = distance
-            min_distance = distance
+        time = directions_json_object["routes"][0]["legs"][0]["duration"]["value"]
+        if time < min_time:
+            sorted_results[results[i]["formatted_address"]] = time
+            min_time = time
     return sorted(sorted_results, key=(lambda location : sorted_results[location]))[0]
 
 
